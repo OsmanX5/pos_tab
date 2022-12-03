@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import '../Invoice_libs/invoice_item.dart';
 import '../Items_screen_libs/specificationScreen.dart';
@@ -23,58 +24,61 @@ class _ItemWidgetState extends State<ItemWidget> {
       width: 0.06 * fullScreenWidth,
       height: 0.06 * fullScreenHeight,
       alignment: Alignment.center,
-      child: InkWell(
-        onTap: () {
-          if (widget.item.available) {
-            addItem2Invoice();
-            streamController.add(true);
-          }
-        },
-        onDoubleTap: () {
-          showPopScreen(context, widget.item);
-        },
-        onHover: (hovering) {
-          setState(() => isHovering = hovering);
-        },
-        child: Column(
-          children: [
-            // name Box
-            Container(
-              alignment: Alignment.center,
-              width: 0.06 * fullScreenWidth,
-              height: 0.04 * fullScreenHeight,
-              decoration: BoxDecoration(
-                border: Border.all(),
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(5),
-                  topRight: Radius.circular(5),
+      child: Material(
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(15),
+          bottomRight: Radius.circular(15),
+          topLeft: Radius.circular(5),
+          topRight: Radius.circular(5),
+        ),
+        color: Colors.white,
+        child: InkWell(
+          onTap: () {
+            if (widget.item.available) {
+              addItem2Invoice();
+              streamController.add(true);
+              AudioPlayer().play(AssetSource('audio/my_audio.mp3'));
+            }
+          },
+          onDoubleTap: () {
+            showPopScreen(context, widget.item);
+          },
+          onHover: (hovering) {
+            setState(() => isHovering = hovering);
+          },
+          splashColor: Colors.amber,
+          child: Column(
+            children: [
+              // name Box
+              Container(
+                alignment: Alignment.center,
+                width: 0.06 * fullScreenWidth,
+                height: 0.04 * fullScreenHeight,
+                decoration: BoxDecoration(
+                  border: Border.all(),
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(5),
+                    topRight: Radius.circular(5),
+                  ),
+                ),
+                child: Text(
+                  widget.item.name,
+                  style: nameStyle(isHovering ? 10 : 12),
                 ),
               ),
-              child: Text(
-                widget.item.name,
-                style: nameStyle(isHovering ? 10 : 12),
-              ),
-            ),
-            //price Box
-            Container(
-              alignment: Alignment.center,
-              width: 0.05 * fullScreenWidth,
-              height: 0.02 * fullScreenHeight,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(5),
-                  bottomRight: Radius.circular(5),
+              //price Box
+              Container(
+                alignment: Alignment.center,
+                width: 0.05 * fullScreenWidth,
+                height: 0.02 * fullScreenHeight,
+                child: Text(
+                  widget.item.details[widget.item.details.keys.first]!
+                      .toStringAsFixed(0),
+                  style: priceStyle(),
                 ),
               ),
-              child: Text(
-                widget.item.details[widget.item.details.keys.first]!
-                    .toStringAsFixed(0),
-                style: priceStyle(),
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

@@ -49,7 +49,7 @@ class _InvoiceWidgetState extends State<InvoiceWidget> {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(right: 5, top: 30, bottom: 30),
-      width: fullScreenWidth * (0.2),
+      width: fullScreenWidth * (0.23),
       color: Colors.white,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -402,7 +402,7 @@ class _InvoiceWidgetState extends State<InvoiceWidget> {
               child: const Text(
                 "Print",
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 24,
                   fontWeight: FontWeight.w900,
                   color: Colors.black,
                 ),

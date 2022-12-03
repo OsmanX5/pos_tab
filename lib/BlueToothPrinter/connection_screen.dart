@@ -178,7 +178,7 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
                                                       _blueDevices[index]
                                                           .address
                                                   ? Colors.blue
-                                                  : Colors.black,
+                                                  : Colors.white,
                                               fontSize: 20,
                                               fontWeight: FontWeight.w500,
                                             ),

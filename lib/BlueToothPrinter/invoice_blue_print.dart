@@ -38,7 +38,7 @@ class InvoiceBluePrint {
         alignment: ReceiptAlignment.right,
         style: ReceiptTextStyleType.bold,
         size: ReceiptTextSizeType.large);
-    receiptText.addSpacer(count: 3);
+    receiptText.addSpacer(count: 2);
   }
 
   Future<void> _printInvoice() async {
@@ -58,7 +58,7 @@ class InvoiceBluePrint {
       rightStyle: ReceiptTextStyleType.bold,
       rightSize: ReceiptTextSizeType.medium,
     );
-    receiptText.addSpacer(count: 1);
+    receiptText.addSpacer(count: 2);
   }
 
   Future<void> _printTotal() async {

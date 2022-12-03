@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import '../Invoice_libs/invoice_item.dart';
 import '../Items_screen_libs/item.dart';
@@ -187,6 +188,7 @@ class _SpecificationScreenState extends State<SpecificationScreen> {
         onTap: () {
           addItem2Invoice();
           streamController.add(true);
+          AudioPlayer().play(AssetSource('audio/my_audio.mp3'));
           Navigator.pop(context);
         },
         onHover: (hovering) {
