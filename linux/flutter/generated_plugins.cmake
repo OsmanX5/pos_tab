@@ -4,7 +4,6 @@
 
 list(APPEND FLUTTER_PLUGIN_LIST
   flutter_window_close
-  printing
   url_launcher_linux
 )
 

@@ -5,7 +5,6 @@
 list(APPEND FLUTTER_PLUGIN_LIST
   flutter_window_close
   open_document
-  printing
   url_launcher_windows
 )
 

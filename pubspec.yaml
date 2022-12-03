@@ -37,12 +37,13 @@ dependencies:
   hive: ^2.0.6
   hive_flutter: ^1.1.0
   math_expressions: ^2.3.0
-  pdf: ^3.7.3
+  #pdf: ^3.7.3
   path_provider: ^2.0.9
   open_document: ^1.0.0
-  printing: ^5.7.4
-  filesystem_picker: ^2.0.0
+  #printing: ^5.7.4
+  filesystem_picker: ^3.1.0
   flutter_window_close: ^0.2.2
+  blue_print_pos: ^0.0.14
 
 dev_dependencies:
   flutter_test:
