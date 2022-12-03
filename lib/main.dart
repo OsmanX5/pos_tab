@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'package:blue_print_pos/blue_print_pos.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:pos_tab/BlueToothPrinter/connection_screen.dart';
 import 'HotRestart.dart';
 import 'Invoice_libs/customer.dart';
 import 'Invoice_libs/invoice_item.dart';
@@ -22,6 +24,8 @@ late Box ordersHistory;
 List<Customer> customerHistory = [];
 double fullScreenWidth = 1080;
 double fullScreenHeight = 1920;
+
+final BluePrintPos bluePrintPos = BluePrintPos.instance;
 Future<void> main() async {
   await Hive.initFlutter();
 
@@ -43,7 +47,7 @@ Future<void> main() async {
             primaryColor: Colors.black12,
             canvasColor: Colors.black,
             colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.amber)),
-        home: Home(),
+        home: ConnectionScreen(title: "Connection screen"),
         debugShowCheckedModeBanner: false,
       ),
     ),

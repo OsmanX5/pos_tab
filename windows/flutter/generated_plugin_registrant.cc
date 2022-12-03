@@ -8,6 +8,7 @@
 
 #include <flutter_window_close/flutter_window_close_plugin.h>
 #include <open_document/open_document_plugin.h>
+#include <permission_handler_windows/permission_handler_windows_plugin.h>
 #include <url_launcher_windows/url_launcher_windows.h>
 
 void RegisterPlugins(flutter::PluginRegistry* registry) {
@@ -15,6 +16,8 @@ void RegisterPlugins(flutter::PluginRegistry* registry) {
       registry->GetRegistrarForPlugin("FlutterWindowClosePlugin"));
   OpenDocumentPluginRegisterWithRegistrar(
       registry->GetRegistrarForPlugin("OpenDocumentPlugin"));
+  PermissionHandlerWindowsPluginRegisterWithRegistrar(
+      registry->GetRegistrarForPlugin("PermissionHandlerWindowsPlugin"));
   UrlLauncherWindowsRegisterWithRegistrar(
       registry->GetRegistrarForPlugin("UrlLauncherWindows"));
 }

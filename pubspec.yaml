@@ -37,6 +37,8 @@ dependencies:
   hive: ^2.0.6
   hive_flutter: ^1.1.0
   math_expressions: ^2.3.0
+  bluetooth_print: ^4.3.0
+  permission_handler: ^10.2.0
   #pdf: ^3.7.3
   path_provider: ^2.0.9
   open_document: ^1.0.0
