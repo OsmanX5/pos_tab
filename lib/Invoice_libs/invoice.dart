@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:pos_tab/BlueToothPrinter/invoice_blue_print.dart';
 import '../HotRestart.dart';
 import '../Items_screen_libs/specificationScreen.dart';
 import 'customer.dart';
@@ -32,7 +33,7 @@ class _InvoiceWidgetState extends State<InvoiceWidget> {
   ScrollController _scrollController = ScrollController();
   @override
   void initState() {
-    super.initState(); 
+    super.initState();
     widget.stream.listen((event) {
       refresh();
     });
@@ -376,6 +377,7 @@ class _InvoiceWidgetState extends State<InvoiceWidget> {
             mBok ? currentCustomer.payMethod += "  mBok  " : "";
             if (currentCustomer.invoiceItems.isNotEmpty) {
               // PDFCreator temp = PDFCreator(customer: currentCustomer);
+              InvoiceBluePrint(currentCustomer);
               customerHistory.add(currentCustomer);
               // temp.savePDF(temp.generateInvoicePDF());
               orders += 1;
