@@ -32,7 +32,7 @@ class _InvoiceWidgetState extends State<InvoiceWidget> {
   ScrollController _scrollController = ScrollController();
   @override
   void initState() {
-    super.initState();
+    super.initState(); 
     widget.stream.listen((event) {
       refresh();
     });
