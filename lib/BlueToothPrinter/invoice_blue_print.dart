@@ -50,6 +50,7 @@ class InvoiceBluePrint {
   }
 
   Future<void> _printInvoiceItem(InvoiceItem item) async {
+    receiptText.addSpacer(count: 1, useDashed: true);
     receiptText.addLeftRightText(
       "${counter} | ${item.name}(${item.details})  ",
       "  [ ${item.qty.toStringAsFixed(0)} ]  X ${item.price.toStringAsFixed(0)}= ${item.total.toStringAsFixed(0)}",
@@ -68,9 +69,7 @@ class InvoiceBluePrint {
       style: ReceiptTextStyleType.bold,
     );
     receiptText.addSpacer(count: 1);
-    receiptText.addLeftRightText(" Mbok : 1083065", " يوسف عثمان الفكي",
-        leftStyle: ReceiptTextStyleType.bold,
-        leftSize: ReceiptTextSizeType.large);
+
     receiptText.addSpacer(count: 5);
   }
 }

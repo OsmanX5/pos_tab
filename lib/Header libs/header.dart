@@ -10,8 +10,7 @@ import '../main.dart';
 import 'package:flutter_window_close/flutter_window_close.dart';
 
 class Header extends StatefulWidget {
-  Function dataBaseCallBack;
-  Header({Key? key, required this.dataBaseCallBack}) : super(key: key);
+  Header({Key? key}) : super(key: key);
 
   @override
   State<Header> createState() => _HeaderState();
@@ -70,21 +69,10 @@ class _HeaderState extends State<Header> {
       padding: EdgeInsets.only(left: 10),
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
         EmptyItemIcon(),
-        dataBaseIcon(),
         saveIcon(),
         historyIcon(),
         AllItemsIcon(),
       ]),
-    );
-  }
-
-  Widget dataBaseIcon() {
-    return HeaderIcon(
-      icon: const Icon(
-        Icons.edit,
-        size: 24,
-      ),
-      tapFunction: openDataBase,
     );
   }
 
@@ -128,13 +116,9 @@ class _HeaderState extends State<Header> {
     );
   }
 
-  void openDataBase() {
-    widget.dataBaseCallBack();
-  }
-
   void save() {
     dataBox.clear();
-    data.forEach((key, value) {
+    allItemsData.forEach((key, value) {
       dataBox.put(key, value);
     });
   }
@@ -161,7 +145,7 @@ class _HeaderState extends State<Header> {
   }
 
   void AllItems() {
-    data.forEach((category, itemsList) {
+    allItemsData.forEach((category, itemsList) {
       itemsList.forEach((item) {
         item.details.forEach((company, price) {
           currentCustomer.invoiceItems.add(

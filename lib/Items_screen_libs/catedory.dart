@@ -16,7 +16,7 @@ class Category extends StatefulWidget {
       required this.h,
       required this.color,
       required this.setItemFunction}) {
-    items = data[name];
+    items = allItemsData[name];
   }
   @override
   State<Category> createState() => _CategoryState();
@@ -53,8 +53,8 @@ class _CategoryState extends State<Category> {
           child: GridView.count(
             controller: ScrollController(),
             crossAxisCount: widget.w,
-            crossAxisSpacing: 2,
-            mainAxisSpacing: 2,
+            crossAxisSpacing: 3,
+            mainAxisSpacing: 3,
             childAspectRatio: 2,
             children: itemsBuilder(widget.items),
           ),

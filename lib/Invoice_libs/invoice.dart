@@ -247,7 +247,7 @@ class _InvoiceWidgetState extends State<InvoiceWidget> {
                         Text(
                           item.name,
                           style: const TextStyle(
-                            fontSize: 14,
+                            fontSize: 12,
                             fontWeight: FontWeight.w900,
                             color: Colors.black,
                           ),
@@ -274,26 +274,26 @@ class _InvoiceWidgetState extends State<InvoiceWidget> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      item.price.toStringAsFixed(0),
+                      item.qty.toStringAsFixed(0),
                       style: const TextStyle(
                         fontSize: 14,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w900,
                         color: Colors.black,
                       ),
                     ),
                     const Text(
-                      "X",
+                      " X ",
                       style: TextStyle(
-                        fontSize: 16,
+                        fontSize: 14,
                         fontWeight: FontWeight.w900,
                         color: Colors.black,
                       ),
                     ),
                     Text(
-                      item.qty.toStringAsFixed(0),
+                      item.price.toStringAsFixed(0),
                       style: const TextStyle(
                         fontSize: 14,
-                        fontWeight: FontWeight.w900,
+                        fontWeight: FontWeight.w500,
                         color: Colors.black,
                       ),
                     )
@@ -307,7 +307,7 @@ class _InvoiceWidgetState extends State<InvoiceWidget> {
                 child: Text(
                   item.total.toStringAsFixed(0),
                   style: const TextStyle(
-                    fontSize: 16,
+                    fontSize: 14,
                     fontWeight: FontWeight.w900,
                     color: Colors.black,
                   ),

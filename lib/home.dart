@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:pos_tab/main.dart';
-import 'Database/database_screen.dart';
 import 'Header libs/header.dart';
 import 'body.dart';
 import 'package:flutter/services.dart';
@@ -29,21 +28,12 @@ class _HomeState extends State<Home> {
           width: fullScreenWidth,
           height: fullScreenHeight,
           child: Column(children: [
-            Header(
-              dataBaseCallBack: opendataBase,
-            ),
+            Header(),
             body,
           ]),
         ),
       ),
     );
-  }
-
-  void opendataBase() {
-    databaseOpen = !databaseOpen;
-    setState(() {
-      body = databaseOpen ? DataBaseScreen() : Body();
-    });
   }
 
   void refresh() {

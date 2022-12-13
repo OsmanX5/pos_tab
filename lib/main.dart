@@ -11,7 +11,12 @@ import 'home.dart';
 import 'package:path_provider/path_provider.dart';
 
 // Global variabels
-Map<String, List<Item>> data = {};
+int XSFont = 10;
+int SFont = 12;
+int MFont = 14;
+int LFont = 16;
+int XLFont = 18;
+Map<String, List<Item>> allItemsData = {};
 String currentdate =
     "${DateTime.now().year}${DateTime.now().month}${DateTime.now().day}";
 
@@ -30,14 +35,22 @@ Future<void> main() async {
   await Hive.initFlutter();
 
   Hive.registerAdapter(ItemAdapter());
-  dataBox = await Hive.openBox("data");
+  dataBox = await Hive.openBox("C:labmedData/data");
   ordersHistory = await Hive.openBox("ordersHistory");
-  data = boxDataRead(dataBox);
+  allItemsData = boxDataRead(dataBox);
   print(await getTemporaryDirectory());
   if (!ordersHistory.containsKey(currentdate))
     ordersHistory.put(currentdate, 1);
   orders = ordersHistory.get(currentdate);
-
+  allItemsData.forEach((category, items) {
+    print("\n${category},");
+    items.forEach((item) {
+      print("${item.name},");
+      item.details.forEach((company, price) {
+        print("${company},${price},");
+      });
+    });
+  });
   currentCustomer = new Customer(orderNo: orders);
   runApp(
     HotRestartController(

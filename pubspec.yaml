@@ -47,6 +47,7 @@ dependencies:
   flutter_window_close: ^0.2.2
   blue_print_pos: ^0.0.14
   audioplayers: ^1.1.1
+  window_manager: ^0.2.8
 
 dev_dependencies:
   flutter_test:
