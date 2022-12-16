@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pos_tab/Items_screen_libs/addItemToDataBase.dart';
 import '../Items_screen_libs/item.dart';
 import '../Items_screen_libs/item_widget.dart';
 import '../Items_screen_libs/items_screen.dart';
@@ -70,6 +71,7 @@ class _CategoryState extends State<Category> {
       itemsWidget
           .add(ItemWidget(item: item, setItemFunction: widget.setItemFunction));
     });
+    itemsWidget.add(AddItem2DataBase());
     return itemsWidget;
   }
 }

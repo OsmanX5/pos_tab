@@ -126,6 +126,7 @@ class _ItemWidgetState extends State<ItemWidget> {
       context: context,
       builder: (context) {
         return AlertDialog(
+          backgroundColor: Color.fromARGB(0, 0, 0, 0),
           content: SpecificationScreen(toSaleItem: Item),
         );
       },
