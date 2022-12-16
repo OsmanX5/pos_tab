@@ -32,7 +32,6 @@ class _ItemsWidgetState extends State<ItemsWidget> {
 
   @override
   Widget build(BuildContext context) {
-    nullSafty();
     return Expanded(
       child: Container(
         margin: EdgeInsets.only(left: 10, top: 20, right: 10, bottom: 10),
@@ -82,20 +81,5 @@ class _ItemsWidgetState extends State<ItemsWidget> {
         ),
       ),
     );
-  }
-
-  void nullSafty() {
-    categories.forEach((element) {
-      if (!allItemsData.containsKey(element)) {
-        allItemsData[element] = [];
-      }
-    });
-    allItemsData.forEach((key, value) {
-      if (allItemsData[key]!.isEmpty) {
-        allItemsData[key] = [
-          Item("$key", "new Item", {"comp": 0})
-        ];
-      }
-    });
   }
 }

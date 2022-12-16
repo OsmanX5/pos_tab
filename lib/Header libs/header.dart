@@ -69,20 +69,8 @@ class _HeaderState extends State<Header> {
       padding: EdgeInsets.only(left: 10),
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
         EmptyItemIcon(),
-        saveIcon(),
         historyIcon(),
-        AllItemsIcon(),
       ]),
-    );
-  }
-
-  Widget saveIcon() {
-    return HeaderIcon(
-      icon: const Icon(
-        Icons.check,
-        size: 24,
-      ),
-      tapFunction: save,
     );
   }
 
@@ -96,16 +84,6 @@ class _HeaderState extends State<Header> {
     );
   }
 
-  Widget AllItemsIcon() {
-    return HeaderIcon(
-      icon: const Icon(
-        Icons.all_inbox,
-        size: 24,
-      ),
-      tapFunction: AllItems,
-    );
-  }
-
   Widget EmptyItemIcon() {
     return HeaderIcon(
       icon: const Icon(
@@ -114,13 +92,6 @@ class _HeaderState extends State<Header> {
       ),
       tapFunction: addEmpty,
     );
-  }
-
-  void save() {
-    dataBox.clear();
-    allItemsData.forEach((key, value) {
-      dataBox.put(key, value);
-    });
   }
 
   void showHistory() {
@@ -142,24 +113,6 @@ class _HeaderState extends State<Header> {
                     )),
               ],
             ));
-  }
-
-  void AllItems() {
-    allItemsData.forEach((category, itemsList) {
-      itemsList.forEach((item) {
-        item.details.forEach((company, price) {
-          currentCustomer.invoiceItems.add(
-            new InvoiceItem(
-                category: category,
-                name: item.name,
-                details: company,
-                price: price,
-                qty: 1),
-          );
-        });
-      });
-    });
-    HotRestartController.performHotRestart(context);
   }
 
   void addEmpty() {

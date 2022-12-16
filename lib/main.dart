@@ -1,8 +1,10 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:blue_print_pos/blue_print_pos.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:pos_tab/BlueToothPrinter/connection_screen.dart';
+import 'package:pos_tab/DataReader/csv2map.dart';
 import 'HotRestart.dart';
 import 'Invoice_libs/customer.dart';
 import 'Invoice_libs/invoice_item.dart';
@@ -33,24 +35,18 @@ double fullScreenHeight = 1920;
 final BluePrintPos bluePrintPos = BluePrintPos.instance;
 Future<void> main() async {
   await Hive.initFlutter();
-
+  String completeData = "";
   Hive.registerAdapter(ItemAdapter());
-  dataBox = await Hive.openBox("C:labmedData/data");
+  dataBox = await Hive.openBox("data");
   ordersHistory = await Hive.openBox("ordersHistory");
-  allItemsData = boxDataRead(dataBox);
   print(await getTemporaryDirectory());
   if (!ordersHistory.containsKey(currentdate))
     ordersHistory.put(currentdate, 1);
   orders = ordersHistory.get(currentdate);
-  allItemsData.forEach((category, items) {
-    print("\n${category},");
-    items.forEach((item) {
-      print("${item.name},");
-      item.details.forEach((company, price) {
-        print("${company},${price},");
-      });
-    });
-  });
+
+  final dataFromCSV = CSV2Map().getDataMap();
+  allItemsData = await dataFromCSV;
+  print("now");
   currentCustomer = new Customer(orderNo: orders);
   runApp(
     HotRestartController(
