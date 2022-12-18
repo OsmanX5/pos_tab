@@ -27,9 +27,11 @@ class _BodyState extends State<Body> {
         width: fullScreenWidth,
         color: Color.fromARGB(255, 20, 20, 20),
         child: Row(children: [
-          ItemsWidget(),
+          ItemsWidget(
+            stream: ItemsStreamController.stream,
+          ),
           InvoiceWidget(
-            stream: streamController.stream,
+            stream: InvoiceStreamController.stream,
           ),
         ]),
       ),

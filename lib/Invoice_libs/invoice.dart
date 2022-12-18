@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:pos_tab/BlueToothPrinter/invoice_blue_print.dart';
+import 'package:pos_tab/DataReader/datafetch.dart';
 import '../HotRestart.dart';
 import '../Items_screen_libs/specificationScreen.dart';
 import 'customer.dart';
@@ -25,10 +26,6 @@ class InvoiceWidget extends StatefulWidget {
 
 class _InvoiceWidgetState extends State<InvoiceWidget> {
   final time = DateTime.now();
-  bool cash = false;
-  bool mBok = false;
-  bool check = false;
-  bool debt = false;
   bool printhovering = false;
   ScrollController _scrollController = ScrollController();
   @override
@@ -332,34 +329,6 @@ class _InvoiceWidgetState extends State<InvoiceWidget> {
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
                   color: Colors.black)),
-
-          // cash
-          Checkbox(
-              value: cash,
-              onChanged: (x) {
-                setState(() {
-                  cash = !cash;
-                });
-              }),
-          Text("Cash",
-              style: TextStyle(
-                  fontSize: cash ? 20 : 16,
-                  fontWeight: cash ? FontWeight.w900 : FontWeight.w400,
-                  color: Colors.black)),
-          // mBok
-          Checkbox(
-              value: mBok,
-              onChanged: (x) {
-                setState(() {
-                  mBok = !mBok;
-                });
-              }),
-          Text("mBok",
-              style: TextStyle(
-                  fontSize: mBok ? 20 : 16,
-                  fontWeight: mBok ? FontWeight.w900 : FontWeight.w400,
-                  color: Colors.black)),
-          // check
         ],
       ),
     );
@@ -373,14 +342,13 @@ class _InvoiceWidgetState extends State<InvoiceWidget> {
       child: Container(
         child: InkWell(
           onTap: () {
-            cash ? currentCustomer.payMethod += "  CASH  " : "";
-            mBok ? currentCustomer.payMethod += "  mBok  " : "";
             if (currentCustomer.invoiceItems.isNotEmpty) {
               // PDFCreator temp = PDFCreator(customer: currentCustomer);
               InvoiceBluePrint(currentCustomer);
               customerHistory.add(currentCustomer);
               // temp.savePDF(temp.generateInvoicePDF());
-              orders += 1;
+              if (currentCustomer.orderNo == orders) orders += 1;
+              dataFetch().saveCustomerData(currentCustomer);
               currentCustomer = new Customer(orderNo: orders);
               ordersHistory.put(currentdate, orders);
               refresh();

@@ -38,4 +38,19 @@ class CSV2Map {
     });
     return tempMap;
   }
+
+  Future<void> saveDataMap() async {
+    String newData = "\n";
+    categories.forEach((category) {
+      List<Item> itemsList = allItemsData[category]!;
+      itemsList.forEach((item) {
+        String dataLine = "";
+        dataLine += "\n${category},${item.name}";
+        item.details.forEach((key, value) => dataLine += ",${key},${value}");
+        print(dataLine);
+        newData += dataLine;
+      });
+    });
+    dataFetch().saveDataString(newData);
+  }
 }

@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
 
 import 'custormer_widget.dart';
@@ -22,8 +24,12 @@ class _CustomerScreenState extends State<CustomerScreen> {
 
   List<Widget> customerscreenBuilder() {
     List<Widget> result = [];
+    HashSet<int> listed = HashSet();
     customerHistory.forEach((customer) {
-      result.add(CustomerWidget(customer: customer));
+      if (!listed.contains(customer.orderNo)) {
+        listed.add(customer.orderNo);
+        result.add(CustomerWidget(customer: customer));
+      }
     });
     return result;
   }

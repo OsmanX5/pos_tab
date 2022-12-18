@@ -5,6 +5,7 @@ class Customer {
   String name = "";
   int orderNo;
   List<InvoiceItem> invoiceItems = [];
+
   String payMethod = "";
   double get total {
     double sum = 0;
@@ -14,37 +15,43 @@ class Customer {
     return sum;
   }
 
-  List<InvoiceItem> SortItems(List<InvoiceItem> oldList) {
-    List<InvoiceItem> temp = new List.empty();
+  List<InvoiceItem> GetSortItems() {
+    List<InvoiceItem> oldList = this.invoiceItems;
+    List<InvoiceItem> temp = [];
+    if (oldList.isEmpty) return [];
     oldList.forEach((item) {
       if (item.category == "ICT") {
         temp.add(item);
-        oldList.remove(item);
       }
     });
     oldList.forEach((item) {
       if (item.category == "LAB") {
         temp.add(item);
-        oldList.remove(item);
       }
     });
     oldList.forEach((item) {
       if (item.category == "Containers") {
         temp.add(item);
-        oldList.remove(item);
       }
     });
     oldList.forEach((item) {
       if (item.category == "Reagents") {
         temp.add(item);
-        oldList.remove(item);
       }
     });
     oldList.forEach((item) {
       if (item.category == "Devices") {
         temp.add(item);
-        oldList.remove(item);
       }
+    });
+    return temp;
+  }
+
+  String GetInvoiceAsCSV() {
+    String temp = "";
+    this.GetSortItems().forEach((invoiceItem) {
+      temp +=
+          "\n${invoiceItem.category},${invoiceItem.name},${invoiceItem.details},${invoiceItem.qty},${invoiceItem.price},${invoiceItem.total}";
     });
     return temp;
   }

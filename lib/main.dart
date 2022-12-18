@@ -13,16 +13,21 @@ import 'home.dart';
 import 'package:path_provider/path_provider.dart';
 
 // Global variabels
-int XSFont = 10;
-int SFont = 12;
-int MFont = 14;
-int LFont = 16;
-int XLFont = 18;
+double XSFont = 10;
+double SFont = 12;
+double MFont = 14;
+double LFont = 16;
+double XLFont = 18;
+double XXLFont = 24;
+double XXXLFont = 30;
 Map<String, List<Item>> allItemsData = {};
 String currentdate =
     "${DateTime.now().year}${DateTime.now().month}${DateTime.now().day}";
 
-StreamController<bool> streamController = StreamController<bool>.broadcast();
+StreamController<bool> InvoiceStreamController =
+    StreamController<bool>.broadcast();
+StreamController<bool> ItemsStreamController =
+    StreamController<bool>.broadcast();
 int orders = 1;
 late Customer currentCustomer;
 late Box dataBox;
@@ -31,12 +36,11 @@ late Box ordersHistory;
 List<Customer> customerHistory = [];
 double fullScreenWidth = 1080;
 double fullScreenHeight = 1920;
-
+bool isConnectedToBlueToothPrinter = false;
 final BluePrintPos bluePrintPos = BluePrintPos.instance;
 Future<void> main() async {
   await Hive.initFlutter();
   String completeData = "";
-  Hive.registerAdapter(ItemAdapter());
   dataBox = await Hive.openBox("data");
   ordersHistory = await Hive.openBox("ordersHistory");
   print(await getTemporaryDirectory());
@@ -56,7 +60,7 @@ Future<void> main() async {
             primaryColor: Colors.black12,
             canvasColor: Colors.black,
             colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.amber)),
-        home: ConnectionScreen(title: "Connection screen"),
+        home: Home(),
         debugShowCheckedModeBanner: false,
       ),
     ),

@@ -7,7 +7,7 @@ class InvoiceItem extends StatelessWidget {
   String name = "";
   String details = "";
   double price = 1;
-  double qty = 0;
+  int qty = 0;
   double get total {
     return price * qty;
   }

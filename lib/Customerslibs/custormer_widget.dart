@@ -22,8 +22,8 @@ class _CustomerWidgetState extends State<CustomerWidget> {
             currentCustomer = widget.customer;
             Navigator.pop(context);
             setState(() {});
+            InvoiceStreamController.add(true);
             print("start");
-            HotRestartController.performHotRestart(context);
           },
           leading: Icon(Icons.person),
           title: Text(widget.customer.name),

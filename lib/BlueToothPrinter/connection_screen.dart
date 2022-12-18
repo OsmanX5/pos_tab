@@ -70,6 +70,7 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
     bluePrintPos.disconnect().then((ConnectionStatus status) {
       if (status == ConnectionStatus.disconnect) {
         setState(() {
+          isConnectedToBlueToothPrinter = false;
           _selectedDevice = null;
         });
       }
@@ -84,6 +85,7 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
     final BlueDevice blueDevice = _blueDevices[index];
     bluePrintPos.connect(blueDevice).then((ConnectionStatus status) {
       if (status == ConnectionStatus.connected) {
+        isConnectedToBlueToothPrinter = true;
         setState(() => _selectedDevice = blueDevice);
       } else if (status == ConnectionStatus.timeout) {
         _onDisconnectDevice();

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:math_expressions/math_expressions.dart';
+import 'package:pos_tab/BlueToothPrinter/connection_screen.dart';
 import '../Header%20libs/header_icon.dart';
 import '../HotRestart.dart';
 import '../Invoice_libs/invoice_item.dart';
@@ -70,6 +71,7 @@ class _HeaderState extends State<Header> {
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
         EmptyItemIcon(),
         historyIcon(),
+        ConnectIcon(),
       ]),
     );
   }
@@ -81,6 +83,17 @@ class _HeaderState extends State<Header> {
         size: 24,
       ),
       tapFunction: showHistory,
+    );
+  }
+
+  Widget ConnectIcon() {
+    return HeaderIcon(
+      icon: Icon(
+        Icons.bluetooth,
+        color: isConnectedToBlueToothPrinter ? Colors.green : Colors.red,
+        size: 24,
+      ),
+      tapFunction: OpenBluetoothConnection,
     );
   }
 
@@ -136,6 +149,12 @@ class _HeaderState extends State<Header> {
         );
       },
     );
+  }
+
+  void OpenBluetoothConnection() {
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => ConnectionScreen(title: "connect to Bluettoth"),
+    ));
   }
 
   Widget EmptyScreen() {
@@ -207,7 +226,7 @@ class _HeaderState extends State<Header> {
       name: Emptyname,
       details: "",
       price: double.parse(Emptyprice),
-      qty: double.parse(Emptyqty),
+      qty: int.parse(Emptyqty),
     ));
     HotRestartController.performHotRestart(context);
   }

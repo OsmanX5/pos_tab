@@ -2,11 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:pos_tab/Items_screen_libs/addItemToDataBaseScreen.dart';
+import 'package:pos_tab/Items_screen_libs/item.dart';
 import 'package:pos_tab/main.dart';
 import 'package:flutter/material.dart';
 
-class AddItem2DataBase extends StatelessWidget {
-  const AddItem2DataBase({super.key});
+class AddNewItem2DataBaseWidget extends StatelessWidget {
+  String category;
+  AddNewItem2DataBaseWidget({required this.category});
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +39,9 @@ class AddItem2DataBase extends StatelessWidget {
         return AlertDialog(
           backgroundColor: Color.fromARGB(0, 0, 0, 0),
           insetPadding: EdgeInsets.symmetric(horizontal: 0),
-          content: AddItemToDataBaseScreen(),
+          content: AddItemToDataBaseScreen(
+            newItem: Item(category, "", {}),
+          ),
         );
       },
     );

@@ -34,19 +34,28 @@ class InvoiceBluePrint {
         leftStyle: ReceiptTextStyleType.bold,
         leftSize: ReceiptTextSizeType.large);
     receiptText.addSpacer(count: 1);
+    receiptText.addText("------------------------",
+        size: ReceiptTextSizeType.extraLarge, style: ReceiptTextStyleType.bold);
     receiptText.addText("${customer.name} ",
         alignment: ReceiptAlignment.right,
         style: ReceiptTextStyleType.bold,
         size: ReceiptTextSizeType.large);
-    receiptText.addSpacer(count: 2);
+    receiptText.addText("------------------------",
+        size: ReceiptTextSizeType.extraLarge, style: ReceiptTextStyleType.bold);
   }
 
   Future<void> _printInvoice() async {
-    customer.invoiceItems.forEach((item) {
+    String pastCategory = "";
+    customer.GetSortItems().forEach((item) {
+      if (item.category != pastCategory) {
+        pastCategory = item.category;
+        receiptText.addSpacer(count: 1);
+        receiptText.addText(item.category, alignment: ReceiptAlignment.center);
+      }
       _printInvoiceItem(item);
       counter += 1;
     });
-    receiptText.addSpacer(count: 3);
+    receiptText.addSpacer(count: 1);
   }
 
   Future<void> _printInvoiceItem(InvoiceItem item) async {
@@ -64,12 +73,19 @@ class InvoiceBluePrint {
 
   Future<void> _printTotal() async {
     receiptText.addText(
+      "=====================================",
+      style: ReceiptTextStyleType.bold,
+    );
+    receiptText.addText(
       "Total : ${customer.total.toStringAsFixed(0)}",
       size: ReceiptTextSizeType.extraLarge,
       style: ReceiptTextStyleType.bold,
     );
     receiptText.addSpacer(count: 1);
-
-    receiptText.addSpacer(count: 5);
+    receiptText.addText(
+      "=====================================",
+      style: ReceiptTextStyleType.bold,
+    );
+    receiptText.addSpacer(count: 3);
   }
 }

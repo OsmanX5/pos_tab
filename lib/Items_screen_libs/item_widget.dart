@@ -1,5 +1,6 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:pos_tab/Items_screen_libs/addItemToDataBaseScreen.dart';
 import '../Invoice_libs/invoice_item.dart';
 import '../Items_screen_libs/specificationScreen.dart';
 import '../main.dart';
@@ -36,12 +37,15 @@ class _ItemWidgetState extends State<ItemWidget> {
           onTap: () {
             if (widget.item.available) {
               addItem2Invoice();
-              streamController.add(true);
+              InvoiceStreamController.add(true);
               AudioPlayer().play(AssetSource('audio/my_audio.mp3'));
             }
           },
           onDoubleTap: () {
-            showPopScreen(context, widget.item);
+            showQTYchangePopScreen(context, widget.item);
+          },
+          onLongPress: () {
+            showDataEditPopScreen(context);
           },
           onHover: (hovering) {
             setState(() => isHovering = hovering);
@@ -121,13 +125,29 @@ class _ItemWidgetState extends State<ItemWidget> {
     }
   }
 
-  Future<void> showPopScreen(BuildContext, Item) async {
+  Future<void> showQTYchangePopScreen(BuildContext, Item) async {
     await showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
           backgroundColor: Color.fromARGB(0, 0, 0, 0),
           content: SpecificationScreen(toSaleItem: Item),
+        );
+      },
+    );
+  }
+
+  Future<void> showDataEditPopScreen(BuildContext context) async {
+    await showDialog(
+      useSafeArea: false,
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          backgroundColor: Color.fromARGB(0, 0, 0, 0),
+          insetPadding: EdgeInsets.symmetric(horizontal: 0),
+          content: AddItemToDataBaseScreen(
+            newItem: widget.item,
+          ),
         );
       },
     );

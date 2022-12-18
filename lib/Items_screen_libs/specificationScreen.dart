@@ -8,7 +8,7 @@ class SpecificationScreen extends StatefulWidget {
   Item toSaleItem;
   String selected_key = "";
   double currentPrice = 0;
-  double qty = 0;
+  int qty = 0;
   double total = 0;
 
   SpecificationScreen({required this.toSaleItem}) {
@@ -151,10 +151,11 @@ class _SpecificationScreenState extends State<SpecificationScreen> {
       child: Center(
           child: TextField(
         controller: _controller,
+        keyboardType: TextInputType.number,
         autofocus: false,
-        onChanged: (value) {
+        onSubmitted: (value) {
           setState(() {
-            widget.qty = double.parse(value);
+            widget.qty = int.parse(value);
           });
         },
         textAlign: TextAlign.center,
@@ -187,7 +188,7 @@ class _SpecificationScreenState extends State<SpecificationScreen> {
       child: InkWell(
         onTap: () {
           addItem2Invoice();
-          streamController.add(true);
+          InvoiceStreamController.add(true);
           AudioPlayer().play(AssetSource('audio/my_audio.mp3'));
           Navigator.pop(context);
         },

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../Items_screen_libs/catedory.dart';
 import '../Items_screen_libs/specificationScreen.dart';
-import '../SpecialAction.dart';
 import '../main.dart';
 
 import 'item.dart';
@@ -15,7 +14,8 @@ import 'item.dart';
 //    class that get input(category name,number of horizental elemnts,number of Vertical elemnts,Color)
 
 class ItemsWidget extends StatefulWidget {
-  const ItemsWidget({Key? key}) : super(key: key);
+  final Stream<bool> stream;
+  const ItemsWidget({Key? key, required this.stream}) : super(key: key);
 
   @override
   State<ItemsWidget> createState() => _ItemsWidgetState();
@@ -31,6 +31,17 @@ class _ItemsWidgetState extends State<ItemsWidget> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    widget.stream.listen((event) {
+      refresh();
+    });
+  }
+
+  refresh() {
+    setState(() {});
+  }
+
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
