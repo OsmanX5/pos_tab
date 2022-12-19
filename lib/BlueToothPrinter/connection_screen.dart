@@ -12,7 +12,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:pos_tab/home.dart';
+import 'package:pos_tab/MainScreens/home.dart';
 
 import '../DataReader/csv2map.dart';
 import '../main.dart';

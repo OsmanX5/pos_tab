@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'HotRestart.dart';
-import 'Invoice_libs/customer.dart';
-import 'main.dart';
+import '../HotRestart.dart';
+import 'customer.dart';
+import '../main.dart';
 
 class CustomerWidget extends StatefulWidget {
   Customer customer;
@@ -17,6 +17,9 @@ class _CustomerWidgetState extends State<CustomerWidget> {
   Widget build(BuildContext context) {
     return Container(
       width: 500,
+      margin: EdgeInsets.all(5),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20), color: Colors.white),
       child: ListTile(
           onTap: () {
             currentCustomer = widget.customer;
@@ -25,10 +28,24 @@ class _CustomerWidgetState extends State<CustomerWidget> {
             InvoiceStreamController.add(true);
             print("start");
           },
-          leading: Icon(Icons.person),
-          title: Text(widget.customer.name),
-          subtitle: Text(widget.customer.total.toStringAsFixed(0)),
+          leading: Icon(
+            Icons.person,
+            color: Colors.black,
+          ),
+          title: Text(widget.customer.name + ItemsNames()),
+          subtitle: Text(
+            widget.customer.total.toStringAsFixed(0),
+            style: TextStyle(fontSize: XXLFont, color: Colors.blueAccent),
+          ),
           trailing: Text(widget.customer.orderNo.toStringAsFixed(0))),
     );
+  }
+
+  String ItemsNames() {
+    String res = "";
+    widget.customer.invoiceItems.forEach((item) {
+      res += "-[${item.name}]";
+    });
+    return res;
   }
 }

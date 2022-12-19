@@ -6,10 +6,10 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:pos_tab/BlueToothPrinter/connection_screen.dart';
 import 'package:pos_tab/DataReader/csv2map.dart';
 import 'HotRestart.dart';
-import 'Invoice_libs/customer.dart';
+import 'Customerslibs/customer.dart';
 import 'Invoice_libs/invoice_item.dart';
 import 'Items_screen_libs/item.dart';
-import 'home.dart';
+import 'MainScreens/home.dart';
 import 'package:path_provider/path_provider.dart';
 
 // Global variabels
@@ -33,7 +33,6 @@ late Customer currentCustomer;
 late Box dataBox;
 List<String> categories = ["ICT", "LAB", "Containers", "Reagents", "Devices"];
 late Box ordersHistory;
-List<Customer> customerHistory = [];
 double fullScreenWidth = 1080;
 double fullScreenHeight = 1920;
 bool isConnectedToBlueToothPrinter = false;
@@ -41,7 +40,6 @@ final BluePrintPos bluePrintPos = BluePrintPos.instance;
 Future<void> main() async {
   await Hive.initFlutter();
   String completeData = "";
-  dataBox = await Hive.openBox("data");
   ordersHistory = await Hive.openBox("ordersHistory");
   print(await getTemporaryDirectory());
   if (!ordersHistory.containsKey(currentdate))
@@ -51,7 +49,8 @@ Future<void> main() async {
   final dataFromCSV = CSV2Map().getDataMap();
   allItemsData = await dataFromCSV;
   print("now");
-  currentCustomer = new Customer(orderNo: orders);
+  currentCustomer = new Customer();
+  currentCustomer.orderNo = orders;
   runApp(
     HotRestartController(
       child: MaterialApp(

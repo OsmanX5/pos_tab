@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'Invoice_libs/invoice.dart';
-import 'Items_screen_libs/items_screen.dart';
-import 'main.dart';
+import '../Invoice_libs/invoice.dart';
+import '../Items_screen_libs/items_screen.dart';
+import '../main.dart';
 
 //###########################################################
 //#############  application screen except app bar###########

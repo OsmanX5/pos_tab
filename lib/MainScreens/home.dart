@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pos_tab/main.dart';
-import 'DataReader/csv2map.dart';
-import 'Header libs/header.dart';
+import '../DataReader/csv2map.dart';
+import '../Header libs/header.dart';
 import 'body.dart';
 import 'package:flutter/services.dart';
 

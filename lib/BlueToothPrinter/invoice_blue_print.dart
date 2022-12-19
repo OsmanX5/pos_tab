@@ -1,12 +1,12 @@
 import 'package:blue_print_pos/receipt/receipt.dart';
 import 'package:pos_tab/Invoice_libs/invoice_item.dart';
 
-import '../Invoice_libs/customer.dart';
+import '../Customerslibs/customer.dart';
 import '../main.dart';
 import 'package:intl/intl.dart';
 
 class InvoiceBluePrint {
-  Customer customer = new Customer(orderNo: 1);
+  Customer customer = new Customer();
   final ReceiptSectionText receiptText = ReceiptSectionText();
   final time = DateTime.now();
   int counter = 1;

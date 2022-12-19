@@ -17,8 +17,8 @@ class InvoiceItem extends StatelessWidget {
     required this.category,
     required this.name,
     required this.details,
-    required this.price,
     required this.qty,
+    required this.price,
   }) : super(key: key);
 
   Item getDataBaseItem() {

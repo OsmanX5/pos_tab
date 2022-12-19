@@ -6,7 +6,7 @@ import '../Header%20libs/header_icon.dart';
 import '../HotRestart.dart';
 import '../Invoice_libs/invoice_item.dart';
 import '../Items_screen_libs/item.dart';
-import '../customer_screen.dart';
+import '../Customerslibs/customer_screen.dart';
 import '../main.dart';
 import 'package:flutter_window_close/flutter_window_close.dart';
 
@@ -112,19 +112,8 @@ class _HeaderState extends State<Header> {
         context: context,
         builder: (context) => AlertDialog(
               actionsAlignment: MainAxisAlignment.center,
-              title: Text("choose customer order number"),
               content: CustomerScreen(),
-              actions: [
-                ElevatedButton(
-                    style: ElevatedButton.styleFrom(primary: Colors.grey),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: const Text(
-                      "close",
-                      style: TextStyle(fontSize: 32),
-                    )),
-              ],
+              backgroundColor: Color.fromARGB(0, 0, 0, 0),
             ));
   }
 

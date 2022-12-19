@@ -1,6 +1,6 @@
-#Name,Year,month,Day,orderNo,total#
+Name,orderNo#
 category,name,comp,qty,price,totalPrice
-name,comp,qty,price,totalPrice
-name,comp,qty,price,totalPrice
-name,comp,qty,price,totalPrice
-name,comp,qty,price,totalPrice
+category,name,comp,qty,price,totalPrice
+category,name,comp,qty,price,totalPrice
+category,name,comp,qty,price,totalPrice
+category,name,comp,qty,price,totalPrice

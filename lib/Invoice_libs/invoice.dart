@@ -6,7 +6,7 @@ import 'package:pos_tab/BlueToothPrinter/invoice_blue_print.dart';
 import 'package:pos_tab/DataReader/datafetch.dart';
 import '../HotRestart.dart';
 import '../Items_screen_libs/specificationScreen.dart';
-import 'customer.dart';
+import '../Customerslibs/customer.dart';
 import 'invoice_item.dart';
 import '../main.dart';
 import '../pdf/pdf_creater.dart';
@@ -345,11 +345,11 @@ class _InvoiceWidgetState extends State<InvoiceWidget> {
             if (currentCustomer.invoiceItems.isNotEmpty) {
               // PDFCreator temp = PDFCreator(customer: currentCustomer);
               InvoiceBluePrint(currentCustomer);
-              customerHistory.add(currentCustomer);
               // temp.savePDF(temp.generateInvoicePDF());
               if (currentCustomer.orderNo == orders) orders += 1;
               dataFetch().saveCustomerData(currentCustomer);
-              currentCustomer = new Customer(orderNo: orders);
+              currentCustomer = new Customer();
+              currentCustomer.orderNo = orders;
               ordersHistory.put(currentdate, orders);
               refresh();
             }

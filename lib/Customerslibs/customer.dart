@@ -3,7 +3,7 @@ import '../Items_screen_libs/item.dart';
 
 class Customer {
   String name = "";
-  int orderNo;
+  int orderNo = 0;
   List<InvoiceItem> invoiceItems = [];
 
   String payMethod = "";
@@ -48,7 +48,8 @@ class Customer {
   }
 
   String GetInvoiceAsCSV() {
-    String temp = "";
+    String temp = "${this.name},${this.orderNo}";
+
     this.GetSortItems().forEach((invoiceItem) {
       temp +=
           "\n${invoiceItem.category},${invoiceItem.name},${invoiceItem.details},${invoiceItem.qty},${invoiceItem.price},${invoiceItem.total}";
@@ -56,5 +57,26 @@ class Customer {
     return temp;
   }
 
-  Customer({required this.orderNo});
+  Customer({String CustomerInfo = ""}) {
+    UpdateCustomerDataFromCustomerInfo(CustomerInfo);
+  }
+
+  void UpdateCustomerDataFromCustomerInfo(String info) {
+    List<String> InvoiceLines = info.split("\n");
+    List<String> mainData = InvoiceLines[0].split(",");
+    try {
+      this.name = mainData[0];
+    } catch (e) {}
+    InvoiceLines.removeAt(0);
+    InvoiceLines.forEach((line) {
+      List<String> data = line.split(",");
+      InvoiceItem temp = InvoiceItem(
+          category: data[0],
+          name: data[1],
+          details: data[2],
+          qty: double.parse(data[3]).toInt(),
+          price: double.parse(data[4]));
+      this.invoiceItems.add(temp);
+    });
+  }
 }
