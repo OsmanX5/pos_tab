@@ -1,5 +1,6 @@
 import 'dart:collection';
 import 'package:flutter/material.dart';
+import 'package:pos_tab/Customerslibs/dayReportInvoice.dart';
 import 'package:pos_tab/DataReader/datafetch.dart';
 import 'customer.dart';
 import 'custormer_widget.dart';
@@ -19,8 +20,6 @@ class _CustomerScreenState extends State<CustomerScreen> {
   List<Customer> toShowCustomersList = [];
   @override
   Widget build(BuildContext context) {
-    GetTheCustomersDataAtTheDate(
-        DateTime.now().year, DateTime.now().month, DateTime.now().day);
     print(
         "reBuilding with customer list of length ${toShowCustomersList.length}");
     return Container(
@@ -72,6 +71,13 @@ class _CustomerScreenState extends State<CustomerScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          OutlinedButton(
+            onPressed: () {
+              print("Pressed");
+              print(DayReport(toShowCustomersList).GetDayReportAsCustomer());
+            },
+            child: Text("Get Day Report"),
+          ),
           Container(
             width: 200,
             margin: EdgeInsets.all(0),
