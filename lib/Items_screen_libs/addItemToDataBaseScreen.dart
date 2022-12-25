@@ -8,7 +8,12 @@ import 'package:pos_tab/main.dart';
 
 class AddItemToDataBaseScreen extends StatefulWidget {
   Item newItem;
-  AddItemToDataBaseScreen({required this.newItem});
+  bool checkBox_Available = true;
+  bool checkBox_inHome = false;
+  AddItemToDataBaseScreen({required this.newItem}) {
+    checkBox_Available = newItem.available;
+    checkBox_inHome = newItem.inHome;
+  }
 
   @override
   State<AddItemToDataBaseScreen> createState() =>
@@ -19,25 +24,36 @@ class _AddItemToDataBaseScreenState extends State<AddItemToDataBaseScreen> {
   List<TextEditingController> CompaniesTextControllers = [];
   List<TextEditingController> PricesTextController = [];
   TextEditingController nameTextController = TextEditingController();
+  TextEditingController stockController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: fullScreenWidth / 3,
+      width: fullScreenWidth / 1.5,
       height: fullScreenHeight / 1.1,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(20.0)),
-        color: Colors.black,
-        border: Border.all(color: Colors.amber, width: 3),
-      ),
       child: AddNewItemScreenWidget(),
     );
   }
 
   Widget AddNewItemScreenWidget() {
     Widget screen = Container(
-      child: ListView(
-        children: allItems(),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          StockEditing(),
+          Container(
+            width: 400,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(20.0)),
+              color: Colors.black,
+              border: Border.all(color: Colors.amber, width: 3),
+            ),
+            child: ListView(
+              children: allItems(),
+            ),
+          ),
+        ],
       ),
     );
 
@@ -201,16 +217,20 @@ class _AddItemToDataBaseScreenState extends State<AddItemToDataBaseScreen> {
     for (int i = 0; i < 6; i++) {
       if (PricesTextController[i].text != "") {
         String priceEquation = PricesTextController[i].text;
-
         Parser p = new Parser();
         Expression exp = p.parse(priceEquation);
         double res = exp.evaluate(EvaluationType.REAL, ContextModel());
         details[CompaniesTextControllers[i].text] = res;
       }
     }
-
     if (details.length < 1) details = {"comp": 0};
-    return Item(widget.newItem.category, nameTextController.text, details);
+    Item newItem = Item(
+        category: widget.newItem.category,
+        name: nameTextController.text,
+        details: details);
+    newItem.available = widget.checkBox_Available;
+    newItem.inHome = widget.checkBox_inHome;
+    return newItem;
   }
 
   void saveItemToDataBase() {
@@ -234,5 +254,228 @@ class _AddItemToDataBaseScreenState extends State<AddItemToDataBaseScreen> {
     }
     ItemsStreamController.add(true);
     Navigator.pop(context);
+  }
+
+  Widget StockEditing() {
+    return Container(
+      width: fullScreenWidth / 4.5,
+      height: fullScreenHeight / 1.4,
+      margin: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(20.0)),
+        color: Colors.black,
+        border: Border.all(color: Colors.amber, width: 3),
+      ),
+      child: Column(
+        children: StockOptionsWidgets(),
+      ),
+    );
+  }
+
+  List<Widget> StockOptionsWidgets() {
+    List<Widget> temp = [
+      AvailableCheckBoxWidget(),
+      AtHomeCheckBoxWidget(),
+      StockSize(),
+      ExpYear(),
+      ExpMonth()
+    ];
+    return temp;
+  }
+
+  Widget AvailableCheckBoxWidget() {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 10),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(5.0)),
+        color: Colors.black,
+        border: Border.all(color: Colors.amber, width: 3),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Text(
+            "Available",
+            style: optionStyle(),
+          ),
+          Checkbox(
+            fillColor: MaterialStateProperty.all(Colors.blue),
+            overlayColor: MaterialStateProperty.all(Colors.white),
+            value: widget.checkBox_Available,
+            onChanged: (value) {
+              setState(() {
+                widget.checkBox_Available = value!;
+              });
+            },
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget AtHomeCheckBoxWidget() {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 10),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(5.0)),
+        color: Colors.black,
+        border: Border.all(color: Colors.amber, width: 3),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Text(
+            "In Home",
+            style: optionStyle(),
+          ),
+          Checkbox(
+            fillColor: MaterialStateProperty.all(Colors.blue),
+            overlayColor: MaterialStateProperty.all(Colors.white),
+            value: widget.checkBox_inHome,
+            onChanged: (value) {
+              setState(() {
+                widget.checkBox_inHome = value!;
+              });
+            },
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget StockSize() {
+    stockController.text = widget.newItem.stock.toString();
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 10),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(5.0)),
+        color: Colors.black,
+        border: Border.all(color: Colors.amber, width: 3),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text(
+            "Stock ",
+            style: optionStyle(),
+          ),
+          Container(
+            width: 100,
+            child: TextField(
+              controller: stockController,
+              keyboardType: TextInputType.number,
+              decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  )),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget ExpYear() {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 10),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(5.0)),
+        color: Colors.black,
+        border: Border.all(color: Colors.amber, width: 3),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text(
+            "ExpireYear ",
+            style: optionStyle(),
+          ),
+          Container(
+            width: 100,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(5.0)),
+              color: Colors.white,
+              border: Border.all(color: Colors.black, width: 1),
+            ),
+            child: DropdownButton(
+              value: 2022,
+              onChanged: (newVal) {},
+              items: [for (int i = 2022; i < 2030; i++) i]
+                  .map((e) => DropdownMenuItem(
+                        child: Text(
+                          "${e}",
+                          style: TextStyle(
+                              color: Colors.amber,
+                              fontSize: XXLFont,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        value: e,
+                      ))
+                  .toList(),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget ExpMonth() {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 10),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(5.0)),
+        color: Colors.black,
+        border: Border.all(color: Colors.amber, width: 3),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text(
+            "ExpireYear ",
+            style: optionStyle(),
+          ),
+          Container(
+            width: 100,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(5.0)),
+              color: Colors.white,
+              border: Border.all(color: Colors.black, width: 1),
+            ),
+            alignment: Alignment.center,
+            child: DropdownButton(
+              value: 12,
+              onChanged: (newVal) {},
+              items: [for (int i = 1; i <= 12; i++) i]
+                  .map((e) => DropdownMenuItem(
+                        child: Text(
+                          "${e}",
+                          style: TextStyle(
+                              color: Colors.amber,
+                              fontSize: XXLFont,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        value: e,
+                      ))
+                  .toList(),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  TextStyle optionStyle() {
+    return TextStyle(
+      fontSize: XXXLFont,
+      fontWeight: FontWeight.bold,
+      color: Colors.amber,
+    );
+    ;
   }
 }

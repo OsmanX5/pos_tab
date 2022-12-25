@@ -1,5 +1,7 @@
 import 'dart:collection';
+import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:pos_tab/Customerslibs/dayReportInvoice.dart';
 import 'package:pos_tab/DataReader/datafetch.dart';
 import 'customer.dart';
@@ -23,7 +25,7 @@ class _CustomerScreenState extends State<CustomerScreen> {
     print(
         "reBuilding with customer list of length ${toShowCustomersList.length}");
     return Container(
-      width: fullScreenWidth / 3,
+      width: fullScreenWidth / 2.5,
       height: fullScreenHeight,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(20.0)),
@@ -73,10 +75,19 @@ class _CustomerScreenState extends State<CustomerScreen> {
         children: [
           OutlinedButton(
             onPressed: () {
-              print("Pressed");
-              print(DayReport(toShowCustomersList).GetDayReportAsCustomer());
+              Clipboard.setData(ClipboardData(
+                  text: DayReport(toShowCustomersList)
+                      .GetDayReportAsCustomer(category: false)));
             },
-            child: Text("Get Day Report"),
+            child: Icon(Icons.euro),
+          ),
+          OutlinedButton(
+            onPressed: () {
+              Clipboard.setData(ClipboardData(
+                  text: DayReport(toShowCustomersList).GetDayReportAsCustomer(
+                      category: false, price_andTotal: false)));
+            },
+            child: Icon(Icons.copy),
           ),
           Container(
             width: 200,
@@ -103,6 +114,15 @@ class _CustomerScreenState extends State<CustomerScreen> {
                   )),
             ),
           ),
+          IconButton(
+              onPressed: () {
+                GetTheCustomersDataAtTheDate(DateTime.now().year,
+                    DateTime.now().month, DateTime.now().day);
+              },
+              icon: Icon(
+                Icons.today,
+                color: Colors.amber,
+              )),
         ],
       ),
     );

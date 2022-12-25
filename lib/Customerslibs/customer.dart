@@ -44,15 +44,19 @@ class Customer {
         temp.add(item);
       }
     });
+
     return temp;
   }
 
-  String GetInvoiceAsCSV() {
+  String GetInvoiceAsCSV({bool category = true, bool price_andTotal = true}) {
     String temp = "${this.name},${this.orderNo}";
 
     this.GetSortItems().forEach((invoiceItem) {
+      temp += "\n";
+      temp += category ? invoiceItem.category + "," : "";
+      temp += "${invoiceItem.name},${invoiceItem.details},${invoiceItem.qty}";
       temp +=
-          "\n${invoiceItem.category},${invoiceItem.name},${invoiceItem.details},${invoiceItem.qty},${invoiceItem.price},${invoiceItem.total}";
+          price_andTotal ? ",${invoiceItem.price},${invoiceItem.total}" : "";
     });
     return temp;
   }

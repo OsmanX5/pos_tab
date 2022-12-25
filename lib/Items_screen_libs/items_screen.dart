@@ -22,7 +22,7 @@ class ItemsWidget extends StatefulWidget {
 }
 
 class _ItemsWidgetState extends State<ItemsWidget> {
-  Item toSaleItem = Item("ICT", "choose Item", {"Company": 0});
+  Item toSaleItem = Item(details: {"Company": 0.0});
 
   callback(item) {
     setState(() {

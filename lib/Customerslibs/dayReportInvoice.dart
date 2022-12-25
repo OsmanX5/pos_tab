@@ -4,7 +4,8 @@ class DayReport {
   List<Customer> thisDayCustomers = [];
   DayReport(this.thisDayCustomers);
 
-  String GetDayReportAsCustomer() {
+  String GetDayReportAsCustomer(
+      {bool category = true, bool price_andTotal = true}) {
     Customer dayReport = Customer();
     dayReport.orderNo = 1000;
     thisDayCustomers.forEach((tempCustomer) {
@@ -23,6 +24,7 @@ class DayReport {
         }
       });
     });
-    return dayReport.GetInvoiceAsCSV();
+    return dayReport.GetInvoiceAsCSV(
+        category: category, price_andTotal: price_andTotal);
   }
 }

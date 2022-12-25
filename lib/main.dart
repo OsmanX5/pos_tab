@@ -48,7 +48,6 @@ Future<void> main() async {
 
   final dataFromCSV = CSV2Map().getDataMap();
   allItemsData = await dataFromCSV;
-  print("now");
   currentCustomer = new Customer();
   currentCustomer.orderNo = orders;
   runApp(
@@ -74,14 +73,4 @@ Future<void> main() async {
     // await windowManager.show();
     await windowManager.setSkipTaskbar(true);
   });*/
-}
-
-//read all data inside a box
-Map<String, List<Item>> boxDataRead(Box box) {
-  Map<String, List<Item>> data = {};
-  box.keys.forEach((key) {
-    data[key] = List<Item>.from(box.get(key));
-  });
-
-  return data;
 }

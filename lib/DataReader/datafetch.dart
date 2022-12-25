@@ -31,9 +31,13 @@ class dataFetch {
     List<String> res = [];
     final directory = await getApplicationDocumentsDirectory();
     String path = "${directory.path}/OldInvoices/${year}/${month}/${day}";
-    List<FileSystemEntity> allfiles = await Directory(path).list().toList();
-    for (final file in allfiles) {
-      if (await file.exists()) res.add(await (file as File).readAsString());
+    try {
+      List<FileSystemEntity> allfiles = await Directory(path).list().toList();
+      for (final file in allfiles) {
+        if (await file.exists()) res.add(await (file as File).readAsString());
+      }
+    } catch (e) {
+      print("no files");
     }
 
     return res;

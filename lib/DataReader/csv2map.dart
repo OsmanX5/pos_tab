@@ -12,30 +12,34 @@ class CSV2Map {
       tempMap[category] = <Item>[];
     });
     List<String> lines = allDataString.split("\n");
-    lines.removeAt(0);
-    lines.forEach((line) {
-      try {
-        List<String> data = line.split(",");
-        print(line);
-        String Category = data[0];
-        String name = data[1];
-        Map<String, double> details = {};
-        for (int i = 2; i < data.length; i += 2) {
-          try {
-            details[data[i]] = double.parse(data[i + 1]);
-          } catch (e) {}
-        }
-        print("cat = " + Category + ".");
-        print("name = " + name);
-        details.forEach((key, value) {
-          print(key + " " + value.toString());
-        });
-        print(tempMap[Category]!.length);
-        tempMap[Category]!.add(Item(Category, name, details));
-      } catch (e) {
-        print("Lines end");
+    for (int i = 0; i < lines.length; i++) {
+      String line = lines[i];
+      List<String> data = line.split(",");
+      print(line);
+      if (data.length < 2) continue;
+      String Category = data[0];
+      String name = data[1];
+      bool available = int.parse(data[2]) == 1 ? true : false;
+      bool inHome = int.parse(data[3]) == 1 ? true : false;
+      Map<String, double> details = {};
+      for (int i = 4; i < data.length; i += 2) {
+        try {
+          details[data[i]] = double.parse(data[i + 1]);
+        } catch (e) {}
       }
-    });
+      print("cat = " + Category + ".");
+      print("name = " + name);
+      details.forEach((key, value) {
+        print(key + " " + value.toString());
+      });
+      print(tempMap[Category]!.length);
+      tempMap[Category]!.add(Item(
+          category: Category,
+          name: name,
+          available: available,
+          inHome: inHome,
+          details: details));
+    }
     return tempMap;
   }
 
@@ -45,7 +49,8 @@ class CSV2Map {
       List<Item> itemsList = allItemsData[category]!;
       itemsList.forEach((item) {
         String dataLine = "";
-        dataLine += "\n${category},${item.name}";
+        dataLine +=
+            "\n${category},${item.name},${item.available ? 1 : 0},${item.inHome ? 1 : 0}";
         item.details.forEach((key, value) => dataLine += ",${key},${value}");
         print(dataLine);
         newData += dataLine;

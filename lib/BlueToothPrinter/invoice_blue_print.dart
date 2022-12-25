@@ -6,11 +6,15 @@ import '../main.dart';
 import 'package:intl/intl.dart';
 
 class InvoiceBluePrint {
-  Customer customer = new Customer();
+  Customer Mycustomer = new Customer();
   final ReceiptSectionText receiptText = ReceiptSectionText();
   final time = DateTime.now();
   int counter = 1;
-  InvoiceBluePrint(this.customer) {
+  InvoiceBluePrint(Customer customer) {
+    Mycustomer = customer;
+    print(customer.name);
+    print("l = " + "${customer.invoiceItems.length}");
+    print("first = ${customer.invoiceItems[0].name}");
     _onPrintReceipt();
   }
 
@@ -29,14 +33,14 @@ class InvoiceBluePrint {
       style: ReceiptTextStyleType.bold,
     );
     receiptText.addSpacer(count: 1);
-    receiptText.addLeftRightText(" Order No : ${customer.orderNo}",
+    receiptText.addLeftRightText(" Order No : ${Mycustomer.orderNo}",
         " Date : ${DateFormat('yyyy-MM-dd – kk:mm').format(DateTime.now())}",
         leftStyle: ReceiptTextStyleType.bold,
         leftSize: ReceiptTextSizeType.large);
     receiptText.addSpacer(count: 1);
     receiptText.addText("------------------------",
         size: ReceiptTextSizeType.extraLarge, style: ReceiptTextStyleType.bold);
-    receiptText.addText("${customer.name} ",
+    receiptText.addText("${Mycustomer.name} ",
         alignment: ReceiptAlignment.right,
         style: ReceiptTextStyleType.bold,
         size: ReceiptTextSizeType.large);
@@ -45,8 +49,10 @@ class InvoiceBluePrint {
   }
 
   Future<void> _printInvoice() async {
+    print("Now printing The Invoice ");
     String pastCategory = "";
-    customer.GetSortItems().forEach((item) {
+    Mycustomer.GetSortItems().forEach((item) {
+      print("Now on item " + item.name + "in cat" + item.category);
       if (item.category != pastCategory) {
         pastCategory = item.category;
         receiptText.addSpacer(count: 1);
@@ -59,7 +65,9 @@ class InvoiceBluePrint {
   }
 
   Future<void> _printInvoiceItem(InvoiceItem item) async {
+    print("Now printing invoice item" + item.name);
     receiptText.addSpacer(count: 1, useDashed: true);
+    print(item.name);
     receiptText.addLeftRightText(
       "${counter} | ${item.name}(${item.details})  ",
       "  [ ${item.qty.toStringAsFixed(0)} ]  X ${item.price.toStringAsFixed(0)}= ${item.total.toStringAsFixed(0)}",
@@ -77,7 +85,7 @@ class InvoiceBluePrint {
       style: ReceiptTextStyleType.bold,
     );
     receiptText.addText(
-      "Total : ${customer.total.toStringAsFixed(0)}",
+      "Total : ${Mycustomer.total.toStringAsFixed(0)}",
       size: ReceiptTextSizeType.extraLarge,
       style: ReceiptTextStyleType.bold,
     );

@@ -22,7 +22,7 @@ class InvoiceItem extends StatelessWidget {
   }) : super(key: key);
 
   Item getDataBaseItem() {
-    Item theItem = new Item("", "", new Map());
+    Item theItem = Item(details: {});
     allItemsData[category]?.forEach((dataBaseItem) {
       if (dataBaseItem.name == this.name) {
         theItem = dataBaseItem;

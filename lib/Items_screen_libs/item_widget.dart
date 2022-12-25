@@ -10,8 +10,12 @@ import 'item.dart';
 class ItemWidget extends StatefulWidget {
   Item item;
   Function setItemFunction;
-  ItemWidget({Key? key, required this.item, required this.setItemFunction})
-      : super(key: key);
+  ItemWidget({Key? key, required this.item, required this.setItemFunction}) {
+    if (item.name == "") item.name = "_";
+    if (item.details.length < 1) {
+      item.details = {"comp": 0};
+    }
+  }
 
   @override
   State<ItemWidget> createState() => _ItemWidgetState();
@@ -32,7 +36,7 @@ class _ItemWidgetState extends State<ItemWidget> {
           topLeft: Radius.circular(5),
           topRight: Radius.circular(5),
         ),
-        color: Colors.white,
+        color: widget.item.available ? Colors.white : Colors.grey,
         child: InkWell(
           onTap: () {
             if (widget.item.available) {
@@ -76,7 +80,10 @@ class _ItemWidgetState extends State<ItemWidget> {
                 width: 0.05 * fullScreenWidth,
                 height: 0.02 * fullScreenHeight,
                 child: Text(
-                  widget.item.details[widget.item.details.keys.first]!
+                  (widget.item.details.keys.first == null
+                          ? 0
+                          : widget
+                              .item.details[widget.item.details.keys.first])!
                       .toStringAsFixed(0),
                   style: priceStyle(),
                 ),
