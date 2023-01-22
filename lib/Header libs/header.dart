@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:math_expressions/math_expressions.dart';
@@ -72,6 +73,7 @@ class _HeaderState extends State<Header> {
         EmptyItemIcon(),
         historyIcon(),
         ConnectIcon(),
+        allPricesIcon()
       ]),
     );
   }
@@ -218,5 +220,32 @@ class _HeaderState extends State<Header> {
       qty: int.parse(Emptyqty),
     ));
     HotRestartController.performHotRestart(context);
+  }
+
+  void GetAllItemsPrices() {
+    AudioPlayer().play(AssetSource('audio/my_audio.mp3'));
+    String temp =
+        "prices for ${DateTime.now().day} / ${DateTime.now().month} / ${DateTime.now().year}";
+    categories.forEach((cat) {
+      temp += "\n###### ${cat} ######\n";
+      allItemsData[cat]!.forEach((item) {
+        if (item.available) {
+          item.details.forEach((comp, price) {
+            temp += "\n ${item.name} [${comp}] = " + price.toStringAsFixed(0);
+          });
+        }
+      });
+    });
+    Clipboard.setData(ClipboardData(text: temp));
+  }
+
+  Widget allPricesIcon() {
+    return HeaderIcon(
+      icon: const Icon(
+        Icons.price_change,
+        size: 24,
+      ),
+      tapFunction: GetAllItemsPrices,
+    );
   }
 }

@@ -1,7 +1,9 @@
 import 'dart:developer';
 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:pos_tab/BlueToothPrinter/invoice_blue_print.dart';
 import 'package:pos_tab/DataReader/datafetch.dart';
 import '../HotRestart.dart';
@@ -336,48 +338,61 @@ class _InvoiceWidgetState extends State<InvoiceWidget> {
 
   Widget finalPrint() {
     return Container(
-      width: fullScreenWidth * 100 / 1080,
+      width: fullScreenWidth * 200 / 1080,
       alignment: Alignment.center,
       padding: EdgeInsets.all(10),
-      child: Container(
-        child: InkWell(
-          onTap: () {
-            if (currentCustomer.invoiceItems.isNotEmpty) {
-              // PDFCreator temp = PDFCreator(customer: currentCustomer);
-              InvoiceBluePrint(currentCustomer);
-              // temp.savePDF(temp.generateInvoicePDF());
-              if (currentCustomer.orderNo == orders) orders += 1;
-              dataFetch().saveCustomerData(currentCustomer);
-              currentCustomer = new Customer();
-              currentCustomer.orderNo = orders;
-              ordersHistory.put(currentdate, orders);
-              refresh();
-            }
-          },
-          onHover: (hovering) {
-            setState(() => printhovering = hovering);
-          },
-          child: AnimatedContainer(
-            duration: const Duration(milliseconds: 200),
-            curve: Curves.ease,
-            padding: EdgeInsets.all(printhovering ? 10 : 0),
-            decoration: BoxDecoration(
-                color: printhovering ? Colors.amber[400] : Colors.white,
-                borderRadius: BorderRadius.all(Radius.circular(20)),
-                border: Border.all(color: Colors.black, width: 1)),
-            child: Container(
-              alignment: Alignment.center,
-              child: const Text(
-                "Print",
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.w900,
-                  color: Colors.black,
+      child: Row(
+        children: [
+          IconButton(
+              onPressed: () {
+                AudioPlayer().play(AssetSource('audio/my_audio.mp3'));
+                Clipboard.setData(
+                    ClipboardData(text: currentCustomer.getInvoiceString()));
+              },
+              icon: Icon(Icons.copy)),
+          //Print button
+          Container(
+            width: 100,
+            child: InkWell(
+              onTap: () {
+                if (currentCustomer.invoiceItems.isNotEmpty) {
+                  // PDFCreator temp = PDFCreator(customer: currentCustomer);
+                  InvoiceBluePrint(currentCustomer);
+                  // temp.savePDF(temp.generateInvoicePDF());
+                  if (currentCustomer.orderNo == orders) orders += 1;
+                  dataFetch().saveCustomerData(currentCustomer);
+                  currentCustomer = new Customer();
+                  currentCustomer.orderNo = orders;
+                  ordersHistory.put(currentdate, orders);
+                  refresh();
+                }
+              },
+              onHover: (hovering) {
+                setState(() => printhovering = hovering);
+              },
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 200),
+                curve: Curves.ease,
+                padding: EdgeInsets.all(printhovering ? 10 : 0),
+                decoration: BoxDecoration(
+                    color: printhovering ? Colors.amber[400] : Colors.white,
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                    border: Border.all(color: Colors.black, width: 1)),
+                child: Container(
+                  alignment: Alignment.center,
+                  child: const Text(
+                    "Print",
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.w900,
+                      color: Colors.black,
+                    ),
+                  ),
                 ),
               ),
             ),
           ),
-        ),
+        ],
       ),
     );
   }

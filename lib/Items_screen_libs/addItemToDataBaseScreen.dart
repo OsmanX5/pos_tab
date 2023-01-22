@@ -205,6 +205,7 @@ class _AddItemToDataBaseScreenState extends State<AddItemToDataBaseScreen> {
   }
 
   int getItemIndex() {
+    print(widget.newItem.category);
     for (int i = 0; i < allItemsData[widget.newItem.category]!.length; i++) {
       if (widget.newItem.name == allItemsData[widget.newItem.category]![i].name)
         return i;

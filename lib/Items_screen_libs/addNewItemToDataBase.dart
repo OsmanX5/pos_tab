@@ -40,7 +40,8 @@ class AddNewItem2DataBaseWidget extends StatelessWidget {
           backgroundColor: Color.fromARGB(0, 0, 0, 0),
           insetPadding: EdgeInsets.symmetric(horizontal: 0),
           content: AddItemToDataBaseScreen(
-            newItem: Item(category: "", name: "", details: {"comp1": 0.0}),
+            newItem:
+                Item(category: category, name: "", details: {"comp1": 0.0}),
           ),
         );
       },

@@ -1,5 +1,6 @@
 import 'dart:collection';
 import 'dart:developer';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pos_tab/Customerslibs/dayReportInvoice.dart';
@@ -76,18 +77,18 @@ class _CustomerScreenState extends State<CustomerScreen> {
           OutlinedButton(
             onPressed: () {
               Clipboard.setData(ClipboardData(
-                  text: DayReport(toShowCustomersList)
-                      .GetDayReportAsCustomer(category: false)));
+                  text:
+                      DayReport(toShowCustomersList).GetDayReportAsCustomer()));
             },
             child: Icon(Icons.euro),
           ),
           OutlinedButton(
             onPressed: () {
+              AudioPlayer().play(AssetSource('audio/my_audio.mp3'));
               Clipboard.setData(ClipboardData(
-                  text: DayReport(toShowCustomersList).GetDayReportAsCustomer(
-                      category: false, price_andTotal: false)));
+                  text: DayReport(toShowCustomersList).GetHomeItems()));
             },
-            child: Icon(Icons.copy),
+            child: Icon(Icons.home),
           ),
           Container(
             width: 200,
