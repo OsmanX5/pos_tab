@@ -25,7 +25,7 @@ class _BodyState extends State<Body> {
     return Expanded(
       child: Container(
         width: fullScreenWidth,
-        color: Color.fromARGB(255, 20, 20, 20),
+        color: Color.fromARGB(255, 0, 0, 0),
         child: Row(children: [
           ItemsWidget(
             stream: ItemsStreamController.stream,

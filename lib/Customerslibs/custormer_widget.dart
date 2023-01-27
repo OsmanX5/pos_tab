@@ -48,7 +48,7 @@ class _CustomerWidgetState extends State<CustomerWidget> {
               _launchWhatsapp();
             },
             icon: Icon(
-              Icons.whatsapp,
+              Icons.waving_hand,
               color: Colors.green,
             ),
           ),

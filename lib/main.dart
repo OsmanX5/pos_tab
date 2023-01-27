@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:pos_tab/BlueToothPrinter/connection_screen.dart';
 import 'package:pos_tab/DataReader/csv2map.dart';
+import 'package:window_manager/window_manager.dart';
 import 'HotRestart.dart';
 import 'Customerslibs/customer.dart';
 import 'Invoice_libs/invoice_item.dart';
@@ -64,13 +65,13 @@ Future<void> main() async {
     ),
   );
 
-  /* WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
   await windowManager.ensureInitialized();
   windowManager.waitUntilReadyToShow().then((_) async {
     await windowManager.setTitleBarStyle(TitleBarStyle.hidden);
-    await windowManager.setFullScreen(true);
-    // await windowManager.center();
-    // await windowManager.show();
-    await windowManager.setSkipTaskbar(true);
-  });*/
+    await windowManager.setFullScreen(false);
+    await windowManager.center();
+    await windowManager.show();
+    await windowManager.setSkipTaskbar(false);
+  });
 }

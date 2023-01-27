@@ -13,32 +13,36 @@ class CSV2Map {
     });
     List<String> lines = allDataString.split("\n");
     for (int i = 0; i < lines.length; i++) {
-      String line = lines[i];
-      List<String> data = line.split(",");
-      print(line);
-      if (data.length < 2) continue;
-      String Category = data[0];
-      String name = data[1];
-      bool available = int.parse(data[2]) == 1 ? true : false;
-      bool inHome = int.parse(data[3]) == 1 ? true : false;
-      Map<String, double> details = {};
-      for (int i = 4; i < data.length; i += 2) {
-        try {
-          details[data[i]] = double.parse(data[i + 1]);
-        } catch (e) {}
+      try {
+        String line = lines[i];
+        List<String> data = line.split(",");
+        print(line);
+        if (data.length < 2) continue;
+        String Category = data[0];
+        String name = data[1];
+        bool available = int.parse(data[2]) == 1 ? true : false;
+        bool inHome = int.parse(data[3]) == 1 ? true : false;
+        Map<String, double> details = {};
+        for (int i = 4; i < data.length; i += 2) {
+          try {
+            details[data[i]] = double.parse(data[i + 1]);
+          } catch (e) {}
+        }
+        print("cat = " + Category + ".");
+        print("name = " + name);
+        details.forEach((key, value) {
+          print(key + " " + value.toString());
+        });
+        print(tempMap[Category]!.length);
+        tempMap[Category]!.add(Item(
+            category: Category,
+            name: name,
+            available: available,
+            inHome: inHome,
+            details: details));
+      } catch (e) {
+        continue;
       }
-      print("cat = " + Category + ".");
-      print("name = " + name);
-      details.forEach((key, value) {
-        print(key + " " + value.toString());
-      });
-      print(tempMap[Category]!.length);
-      tempMap[Category]!.add(Item(
-          category: Category,
-          name: name,
-          available: available,
-          inHome: inHome,
-          details: details));
     }
     return tempMap;
   }

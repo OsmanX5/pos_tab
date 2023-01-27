@@ -9,7 +9,7 @@ import audioplayers_darwin
 import blue_thermal_printer
 import flutter_window_close
 import open_document
-import path_provider_macos
+import path_provider_foundation
 import screen_retriever
 import share_plus_macos
 import sqflite
