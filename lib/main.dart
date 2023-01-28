@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:blue_print_pos/blue_print_pos.dart';
+//import 'package:blue_print_pos/blue_print_pos.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:pos_tab/BlueToothPrinter/connection_screen.dart';
@@ -34,11 +34,21 @@ late Customer currentCustomer;
 late Box dataBox;
 List<String> categories = ["ICT", "LAB", "Containers", "Reagents", "Devices"];
 late Box ordersHistory;
-double fullScreenWidth = 1080;
-double fullScreenHeight = 1920;
+double fullScreenWidth = 1366;
+double fullScreenHeight = 768 - 50;
 bool isConnectedToBlueToothPrinter = false;
-final BluePrintPos bluePrintPos = BluePrintPos.instance;
+//final BluePrintPos bluePrintPos = BluePrintPos.instance;
 Future<void> main() async {
+  /*WidgetsFlutterBinding.ensureInitialized();
+  await windowManager.ensureInitialized();
+  windowManager.waitUntilReadyToShow().then((_) async {
+    await windowManager.setFullScreen(true);
+    await windowManager.setSize(Size(fullScreenWidth, fullScreenHeight));
+    await windowManager.setTitleBarStyle(TitleBarStyle.hidden);
+    await windowManager.center();
+    await windowManager.show();
+    await windowManager.setSkipTaskbar(false);
+  });*/
   await Hive.initFlutter();
   String completeData = "";
   ordersHistory = await Hive.openBox("ordersHistory");
@@ -64,14 +74,4 @@ Future<void> main() async {
       ),
     ),
   );
-
-  WidgetsFlutterBinding.ensureInitialized();
-  await windowManager.ensureInitialized();
-  windowManager.waitUntilReadyToShow().then((_) async {
-    await windowManager.setTitleBarStyle(TitleBarStyle.hidden);
-    await windowManager.setFullScreen(false);
-    await windowManager.center();
-    await windowManager.show();
-    await windowManager.setSkipTaskbar(false);
-  });
 }

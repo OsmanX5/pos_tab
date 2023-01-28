@@ -73,22 +73,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.1"
-  blue_print_pos:
-    dependency: "direct main"
-    description:
-      name: blue_print_pos
-      sha256: "31db2a954ec1aa75f76cbbd7ca60c65e7c58370a75db008fc73756e9af3dce30"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.0.14"
-  blue_thermal_printer:
+  barcode:
     dependency: transitive
     description:
-      name: blue_thermal_printer
-      sha256: "2b8a93f90be335494d2172dbc869c31b95638087f89591b4ad69fd9305eaf80b"
+      name: barcode
+      sha256: "52570564684bbb0240a9f1fdb6bad12adc5e0540103c1c96d6dd550bd928b1c9"
       url: "https://pub.dev"
     source: hosted
-    version: "1.2.3"
+    version: "2.2.3"
+  bidi:
+    dependency: transitive
+    description:
+      name: bidi
+      sha256: dc00274c7edabae2ab30c676e736ea1eb0b1b7a1b436cb5fe372e431ccb39ab0
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.6"
   bluetooth_print:
     dependency: "direct main"
     description:
@@ -153,14 +153,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.2"
-  csslib:
-    dependency: transitive
-    description:
-      name: csslib
-      sha256: b36c7f7e24c0bdf1bf9a3da461c837d1de64b9f8beb190c9011d8c72a3dfd745
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.17.2"
   cupertino_icons:
     dependency: "direct main"
     description:
@@ -169,14 +161,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.5"
-  esc_pos_utils_plus:
-    dependency: transitive
-    description:
-      name: esc_pos_utils_plus
-      sha256: "397c8c6eda37e3ee50aa22a591fe87c5ca8e0fa50ea0f092fcd42dbdfa8c2863"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.1+6"
   fake_async:
     dependency: transitive
     description:
@@ -209,27 +193,11 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.0"
-  fixnum:
-    dependency: transitive
-    description:
-      name: fixnum
-      sha256: "04be3e934c52e082558cc9ee21f42f5c1cd7a1262f4c63cd0357c08d5bba81ec"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.1"
   flutter:
     dependency: "direct main"
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_blue_plus:
-    dependency: transitive
-    description:
-      name: flutter_blue_plus
-      sha256: "4e49b45d2f1ec9855826ed0af7d2b78b7d2a3e5743b3ae72aec59eb3790356d9"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.4.0"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -264,14 +232,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.2.2"
-  hex:
-    dependency: transitive
-    description:
-      name: hex
-      sha256: "4e7cd54e4b59ba026432a6be2dd9d96e4c5205725194997193bf871703b82c4a"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.2.0"
   hive:
     dependency: "direct main"
     description:
@@ -288,14 +248,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.0"
-  html:
-    dependency: transitive
-    description:
-      name: html
-      sha256: d9793e10dbe0e6c364f4c59bf3e01fb33a9b2a674bc7a1081693dba0614b6269
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.15.1"
   http:
     dependency: transitive
     description:
@@ -316,10 +268,10 @@ packages:
     dependency: transitive
     description:
       name: image
-      sha256: "8e9d133755c3e84c73288363e6343157c383a0c6c56fc51afcc5d4d7180306d6"
+      sha256: "1f9ecf99b08c92dedb699de1d28549f5d79b4423b48cf3f95d6968156db5dd67"
       url: "https://pub.dev"
     source: hosted
-    version: "3.3.0"
+    version: "4.0.12"
   intl:
     dependency: transitive
     description:
@@ -408,6 +360,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.8.2"
+  path_parsing:
+    dependency: transitive
+    description:
+      name: path_parsing
+      sha256: e3e67b1629e6f7e8100b367d3db6ba6af4b1f0bb80f64db18ef1fbabd2fa9ccf
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.1"
   path_provider:
     dependency: "direct main"
     description:
@@ -456,6 +416,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.3"
+  pdf:
+    dependency: "direct main"
+    description:
+      name: pdf
+      sha256: "6cd57e8e6d052bd1078f18e0dc7cd6701fad6288231c1ce99d66ef5034d14e61"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.9.0"
   permission_handler:
     dependency: "direct main"
     description:
@@ -528,6 +496,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.6.2"
+  printing:
+    dependency: "direct main"
+    description:
+      name: printing
+      sha256: "075d6804ddf4332ecb647d7a196490005dc4f025629b1d3e049682b3ac94c0bf"
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.10.0"
   process:
     dependency: transitive
     description:
@@ -536,30 +512,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.2.4"
-  protobuf:
-    dependency: transitive
-    description:
-      name: protobuf
-      sha256: "01dd9bd0fa02548bf2ceee13545d4a0ec6046459d847b6b061d8a27237108a08"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.1.0"
   qr:
     dependency: transitive
     description:
       name: qr
-      sha256: "5c4208b4dc0d55c3184d10d83ee0ded6212dc2b5e2ba17c5a0c0aab279128d21"
+      sha256: "64957a3930367bf97cc211a5af99551d630f2f4625e38af10edd6b19131b64b3"
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.0"
-  qr_flutter:
-    dependency: transitive
-    description:
-      name: qr_flutter
-      sha256: c5c121c54cb6dd837b9b9d57eb7bc7ec6df4aee741032060c8833a678c80b87e
-      url: "https://pub.dev"
-    source: hosted
-    version: "4.0.0"
+    version: "3.0.1"
   rxdart:
     dependency: transitive
     description:
@@ -831,4 +791,4 @@ packages:
     version: "6.2.2"
 sdks:
   dart: ">=2.18.0 <4.0.0"
-  flutter: ">=3.3.0"
+  flutter: ">=3.7.0"

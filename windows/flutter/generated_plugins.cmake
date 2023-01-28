@@ -7,6 +7,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   flutter_window_close
   open_document
   permission_handler_windows
+  printing
   screen_retriever
   url_launcher_windows
   window_manager

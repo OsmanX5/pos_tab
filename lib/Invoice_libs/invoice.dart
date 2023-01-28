@@ -356,9 +356,10 @@ class _InvoiceWidgetState extends State<InvoiceWidget> {
             child: InkWell(
               onTap: () {
                 if (currentCustomer.invoiceItems.isNotEmpty) {
-                  // PDFCreator temp = PDFCreator(customer: currentCustomer);
-                  InvoiceBluePrint(currentCustomer);
-                  // temp.savePDF(temp.generateInvoicePDF());
+                  PDFCreator temp = PDFCreator(customer: currentCustomer);
+                  //InvoiceBluePrint(currentCustomer);
+                  temp.PrintInvoice();
+
                   if (currentCustomer.orderNo == orders) orders += 1;
                   dataFetch().saveCustomerData(currentCustomer);
                   currentCustomer = new Customer();

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:math_expressions/math_expressions.dart';
 import 'package:pos_tab/BlueToothPrinter/connection_screen.dart';
+import 'package:window_manager/window_manager.dart';
 import '../Header%20libs/header_icon.dart';
 import '../HotRestart.dart';
 import '../Invoice_libs/invoice_item.dart';
@@ -36,7 +37,7 @@ class _HeaderState extends State<Header> {
         children: [
           InkWell(
             onTap: () {
-              FlutterWindowClose.closeWindow();
+              windowManager.destroy();
             },
             child: Icon(
               Icons.close_rounded,
@@ -143,9 +144,9 @@ class _HeaderState extends State<Header> {
   }
 
   void OpenBluetoothConnection() {
-    Navigator.of(context).push(MaterialPageRoute(
+    /*Navigator.of(context).push(MaterialPageRoute(
       builder: (context) => ConnectionScreen(title: "connect to Bluettoth"),
-    ));
+    ));*/
   }
 
   Widget EmptyScreen() {

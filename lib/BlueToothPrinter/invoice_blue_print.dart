@@ -1,4 +1,4 @@
-import 'package:blue_print_pos/receipt/receipt.dart';
+/*import 'package:blue_print_pos/receipt/receipt.dart';
 import 'package:pos_tab/Invoice_libs/invoice_item.dart';
 
 import '../Customerslibs/customer.dart';
@@ -97,3 +97,4 @@ class InvoiceBluePrint {
     receiptText.addSpacer(count: 3);
   }
 }
+*/

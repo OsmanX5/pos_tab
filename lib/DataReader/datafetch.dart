@@ -7,7 +7,10 @@ import 'package:pos_tab/Customerslibs/customer.dart';
 class dataFetch {
   Future<String> getItemsDataString() async {
     final directory = await getApplicationDocumentsDirectory();
-    return File("${directory.path}/ItemsData.csv").readAsString();
+    print("the path is ${directory.path}");
+    Future<String> data;
+    data = File("${directory.path}/ItemsData.csv").readAsString();
+    return data;
   }
 
   Future<void> saveDataString(String data) async {

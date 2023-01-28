@@ -1,4 +1,4 @@
-/*import 'dart:io';
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:path_provider_windows/path_provider_windows.dart';
 import 'package:pdf/widgets.dart';
 
-import '../Invoice_libs/customer.dart';
+import '../Customerslibs/customer.dart';
 import '../Invoice_libs/invoice_item.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
@@ -17,7 +17,6 @@ import 'package:flutter/services.dart';
 class PDFCreator {
   Customer? customer;
   final time = DateTime.now();
-
   PDFCreator({this.customer}) {}
 
   //############ #Functions  ############
@@ -47,6 +46,12 @@ class PDFCreator {
     return pdf;
   }
 
+  Future<void> PrintInvoice() async {
+    pw.Document doc = generateInvoicePDF();
+    await Printing.layoutPdf(
+        onLayout: (PdfPageFormat format) async => doc.save());
+  }
+
   pw.Widget invoiceHeader() {
     pw.Widget header = pw.Container(
         width: 180,
@@ -72,6 +77,7 @@ class PDFCreator {
       child: pw.Text(
         "Lab-Med for Medical Equibments",
         style: pw.TextStyle(
+          fontBold: pw.Font.helveticaBold(),
           fontWeight: pw.FontWeight.bold,
         ),
       ),
@@ -96,6 +102,7 @@ class PDFCreator {
         child: pw.Text(
           "permently invoice",
           style: pw.TextStyle(
+            fontBold: pw.Font.helveticaBold(),
             fontWeight: pw.FontWeight.bold,
           ),
         ),
@@ -133,7 +140,8 @@ class PDFCreator {
           border: pw.Border.all(), borderRadius: pw.BorderRadius.circular(5)),
       padding: pw.EdgeInsets.only(left: 2),
       alignment: pw.Alignment.centerLeft,
-      child: pw.Text("name :" + customer!.name),
+      child: pw.Text("name :" + customer!.name,
+          style: pw.TextStyle(font: pw.Font.helveticaBold())),
     );
   }
 
@@ -156,7 +164,7 @@ class PDFCreator {
     return pw.Container(
         width: 180,
         child: pw.Column(
-            children: invoicePDFWidgetBuilder(customer!.invoiceItems)));
+            children: invoicePDFWidgetBuilder(customer!.GetSortItems())));
   }
 
   pw.Widget invoiceListHeader() {
@@ -168,7 +176,7 @@ class PDFCreator {
         ));
   }
 
-  pw.Widget invoicePDFWidget(InvoiceItem item) {
+  pw.Widget invoicePDFWidget(InvoiceItem item, int order) {
     return pw.Container(
       height: 40,
       width: 180,
@@ -178,22 +186,27 @@ class PDFCreator {
       alignment: pw.Alignment.centerLeft,
       child: pw.Center(
         child: pw.Row(children: [
+          pw.Container(child: pw.Text("${order}")),
           //NAME& COMPANY
           pw.Container(
             alignment: pw.Alignment.center,
-            width: 70,
+            width: 60,
             child: pw.Column(
                 mainAxisAlignment: pw.MainAxisAlignment.center,
                 children: [
                   pw.Text(
                     item.name,
                     style: pw.TextStyle(
-                        fontSize: 11, fontWeight: pw.FontWeight.bold),
+                        fontSize: 11,
+                        fontBold: pw.Font.helveticaBold(),
+                        fontWeight: pw.FontWeight.bold),
                   ),
                   pw.Text(
                     item.details,
                     style: pw.TextStyle(
-                        fontSize: 9, fontWeight: pw.FontWeight.normal),
+                        fontSize: 9,
+                        fontBold: pw.Font.courier(),
+                        fontWeight: pw.FontWeight.normal),
                   ),
                 ]),
           ),
@@ -207,12 +220,16 @@ class PDFCreator {
                     pw.Text(
                       item.price.toStringAsFixed(0) + " x",
                       style: pw.TextStyle(
-                          fontSize: 9, fontWeight: pw.FontWeight.normal),
+                          fontSize: 9,
+                          fontBold: pw.Font.helvetica(),
+                          fontWeight: pw.FontWeight.normal),
                     ),
                     pw.Text(
                       item.qty.toStringAsFixed(0) + "  ",
                       style: pw.TextStyle(
-                          fontSize: 11, fontWeight: pw.FontWeight.bold),
+                          fontSize: 11,
+                          fontBold: pw.Font.helveticaBold(),
+                          fontWeight: pw.FontWeight.bold),
                     ),
                   ])),
 
@@ -222,7 +239,10 @@ class PDFCreator {
             child: pw.Text(
               item.total.toStringAsFixed(0),
               textAlign: pw.TextAlign.center,
-              style: pw.TextStyle(fontSize: 11, fontWeight: pw.FontWeight.bold),
+              style: pw.TextStyle(
+                  fontSize: 11,
+                  fontBold: pw.Font.helveticaBold(),
+                  fontWeight: pw.FontWeight.bold),
             ),
           ),
         ]),
@@ -232,10 +252,34 @@ class PDFCreator {
 
   List<pw.Widget> invoicePDFWidgetBuilder(List<InvoiceItem> items) {
     List<pw.Widget> result = [];
-    items.forEach((item) {
-      result.add(invoicePDFWidget(item));
-    });
+    int n = items.length;
+    result.add(spacer(items[0].category));
+    result.add(invoicePDFWidget(items[0], 1));
+    int order = 1;
+    for (int i = 1; i < n; i++) {
+      order += 1;
+      if (items[i].category != items[i - 1].category) {
+        result.add(spacer(items[i].category));
+      }
+      result.add(invoicePDFWidget(items[i], order));
+    }
     return result;
+  }
+
+  pw.Widget spacer(String text) {
+    return pw.Container(
+      height: 20,
+      padding: pw.EdgeInsets.only(left: 2),
+      alignment: pw.Alignment.center,
+      child: pw.Text(
+        text,
+        style: pw.TextStyle(
+          fontSize: 15,
+          fontBold: pw.Font.helveticaBold(),
+          fontWeight: pw.FontWeight.bold,
+        ),
+      ),
+    );
   }
 
   pw.Widget total() {
@@ -249,6 +293,7 @@ class PDFCreator {
         "Total :" + customer!.total.toStringAsFixed(0),
         style: pw.TextStyle(
           fontSize: 15,
+          fontBold: pw.Font.helveticaBold(),
           fontWeight: pw.FontWeight.bold,
         ),
       ),
@@ -256,7 +301,7 @@ class PDFCreator {
   }
 
   void savePDF(pw.Document pdf) async {
-    String path = "";
+    String path = "C:/labmedData/invoices/";
     //String name =
     //    "${time.year}_${time.month}_${time.day}___${orders}____${customer!.name}____${customer!.total}.pdf";
     String name = "item.pdf";
@@ -267,4 +312,3 @@ class PDFCreator {
         onLayout: (PdfPageFormat format) async => pdf.save());
   }
 }
-*/
